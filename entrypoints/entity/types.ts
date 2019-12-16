@@ -1,8 +1,7 @@
 import {Observable} from 'rxjs';
-import {IEntity} from '@xangular-common/entity';
 import {InjectionToken} from '@angular/core';
-import {IEntrypointService} from '@app-services/data';
-import {IRequest} from '@app-services/data/entrypoints/types';
+import {IEntity} from '../../../dangular-common/entity';
+import {IEntrypointService, IRequest} from '../types';
 
 export const ENTITY_ENTRYPOINT = new InjectionToken<IEntityEntrypoint>('ENTITY_ENTRYPOINT');
 export const ENTITY_RESPONSE_CONVERTER = new InjectionToken<IEntityEntrypoint>('ENTITY_RESPONSE_CONVERTER');

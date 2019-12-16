@@ -1,12 +1,11 @@
 import {Inject, Injectable} from '@angular/core';
-import {IEntity} from '@xangular-common/entity';
 import {Observable} from 'rxjs';
 import {ENTITY_REQUEST_FACTORY, ENTITY_RESPONSE_CONVERTER, IEntityEntrypoint, IEntityRequestFactory} from './types';
-import {IResponseConverter} from '@app-services/data';
-import {EntrypointAbstractService} from '@app-services/data/entrypoints/entrypoint.abstract';
-import {ITransportService, TRANSPORT_SERVICE} from '@app-services/data/transport/types';
-import {switchMap, tap} from 'rxjs/operators';
-import {rxLog} from '@app/libraries/logger/rxjs/log';
+import {switchMap} from 'rxjs/operators';
+import {EntrypointAbstractService} from '../entrypoint.abstract';
+import {IResponseConverter} from '../types';
+import {ITransportService, TRANSPORT_SERVICE} from '../../transport/types';
+import {IEntity} from '../../../dangular-common/entity';
 
 @Injectable()
 export class EntityEntrypointService extends EntrypointAbstractService implements IEntityEntrypoint {
@@ -39,7 +38,6 @@ export class EntityEntrypointService extends EntrypointAbstractService implement
 
   getItem<T extends IEntity>(source: string, id: string): Observable<T> {
     return this.transport.request(this.request.getItem(source, id)).pipe(
-      rxLog('getItem', source, id),
       switchMap((response: any) => this.converter.convert(response))
     );
   }

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {IResponseConverter} from '@app-services/data';
 import {Observable} from 'rxjs';
-import {convert} from '@app-services/data/entrypoints/rpc/formats/jsonrpc/converter';
+import {IResponseConverter} from '../../../types';
+import {convert} from './converter';
 
 @Injectable()
 export class JsonRPCResponseConverterService implements IResponseConverter {

@@ -1,4 +1,4 @@
-import {IJSONRPCResponse} from '@app-services/data/entrypoints/rpc/formats/jsonrpc/types';
+import {IJSONRPCResponse} from './types';
 
 
 export function convert(response: IJSONRPCResponse) {

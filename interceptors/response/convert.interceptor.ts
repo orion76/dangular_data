@@ -3,10 +3,9 @@ import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {Observable} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 
-import {tap} from 'rxjs/internal/operators/tap';
-import {APP_CONFIG_SERVICE, IAppConfigService} from '@app-library/app-config';
 import {of} from 'rxjs/internal/observable/of';
-import {Log} from '@app/logger/logger';
+import {APP_CONFIG_SERVICE, IAppConfigService} from '../../../dangular-config';
+
 
 export interface IResponseConverterPlugin {
   readonly entrypoint: string;
@@ -27,18 +26,10 @@ export class ConvertResponseInterceptor implements HttpInterceptor {
 
   }
 
-  log(color: string, ...data: any[]) {
-    if (!this.logEnabled) {
-      return;
-    }
-    Log.INTERCEPTOR(...data);
-  }
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
     return next.handle(req).pipe(
       filter((event) => event instanceof HttpResponse),
-      tap((result) => this.log('#d84', '(CONVERT)', result)),
       switchMap((event: HttpResponse<any>) => {
 
         let converted;
@@ -54,7 +45,6 @@ export class ConvertResponseInterceptor implements HttpInterceptor {
 
         return converted.pipe(map((body: any) => event.clone({body})));
       }),
-      tap((result) => this.log('blue', '(CONVERTED)', result)),
     );
     // tap(() => ),
   }

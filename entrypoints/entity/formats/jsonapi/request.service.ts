@@ -1,11 +1,11 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {EEntityDeleted, IEntity} from '@xangular-common/entity';
-import {IEntityRequestFactory} from '@app-services/data/entrypoints/entity/types';
-import {APP_CONFIG_SERVICE, IAppConfigService, IEntrypointSourceConfig} from '@app-library/app-config';
 import {map} from 'rxjs/operators';
 import {HttpParams} from '@angular/common/http';
-import {IRequest, UHTTPMethod} from '@app-services/data/entrypoints/types';
+import {IEntityRequestFactory} from '../../types';
+import {IRequest, UHTTPMethod} from '../../../types';
+import {APP_CONFIG_SERVICE, IAppConfigService, IEntryPointConfig} from '../../../../../dangular-config';
+import {EEntityDeleted, IEntity} from '../../../../../dangular-common/entity';
 
 @Injectable()
 export class JsonAPIRequestFactoryService implements IEntityRequestFactory {
@@ -16,8 +16,8 @@ export class JsonAPIRequestFactoryService implements IEntityRequestFactory {
   create(source: string): Observable<IRequest> {
     const method: UHTTPMethod = 'POST';
 
-    return this.config.get('entity', source).pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint(source).pipe(
+      map((config: IEntryPointConfig) => {
         return {method, url: this.config.createUrl(config), body: {}} as IRequest;
       })
     );
@@ -28,8 +28,8 @@ export class JsonAPIRequestFactoryService implements IEntityRequestFactory {
 
     entity.deleted = EEntityDeleted.DELETED_MARK;
 
-    return this.config.get('entity', entity.source).pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint(entity.source).pipe(
+      map((config: IEntryPointConfig) => {
         return {method, url: this.config.createUrl(config), body: entity} as IRequest;
       })
     );
@@ -38,8 +38,8 @@ export class JsonAPIRequestFactoryService implements IEntityRequestFactory {
   getItem(source: string, id: string): Observable<IRequest> {
     const method: UHTTPMethod = 'GET';
 
-    return this.config.get('entity', source).pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint(source).pipe(
+      map((config: IEntryPointConfig) => {
         return {method, url: this.config.createUrl(config, id)} as IRequest;
       })
     );
@@ -48,8 +48,8 @@ export class JsonAPIRequestFactoryService implements IEntityRequestFactory {
   getItems(source: string, filters?: any): Observable<IRequest> {
     const method: UHTTPMethod = 'GET';
 
-    return this.config.get('entity', source).pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint(source).pipe(
+      map((config: IEntryPointConfig) => {
         return {method, url: this.config.createUrl(config), params: this._createFilters(filters)} as IRequest;
       })
     );
@@ -58,8 +58,8 @@ export class JsonAPIRequestFactoryService implements IEntityRequestFactory {
   save(entity: IEntity): Observable<IRequest> {
     const method: UHTTPMethod = 'POST';
 
-    return this.config.get('entity', entity.source).pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint( entity.source).pipe(
+      map((config: IEntryPointConfig) => {
         return {method, url: this.config.createUrl(config), body: entity} as IRequest;
       })
     );

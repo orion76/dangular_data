@@ -1,28 +1,24 @@
 import {ModuleWithProviders, NgModule, Type} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {IResponseConverter} from '@app-services/data';
+import {TRANSPORT_SERVICE} from './transport/types';
+import {TransportService} from './transport/transport.service';
+import {CONFIG_ENTRYPOINT, CONFIG_SOURCE, IEntryPointConfig, IModelConfig} from '../dangular-config';
 import {
+  ENTITY_ENTRYPOINT,
+  ENTITY_REQUEST_FACTORY,
   ENTITY_RESPONSE_CONVERTER,
   IEntityEntrypoint,
-  ENTITY_REQUEST_FACTORY, ENTITY_ENTRYPOINT, IEntityRequestFactory
-} from '@app-services/data/entrypoints/entity/types';
-import {
-  RPC_ENTRYPOINT,
-  RPC_RESPONSE_CONVERTER,
-  IRPCEntrypoint,
-  IRPCRequestFactory,
-  RPC_REQUEST_FACTORY
-} from '@app-services/data/entrypoints/rpc/types';
+  IEntityRequestFactory
+} from './entrypoints/entity/types';
+import {IResponseConverter} from './entrypoints/types';
+import {IRPCEntrypoint, IRPCRequestFactory, RPC_ENTRYPOINT, RPC_REQUEST_FACTORY, RPC_RESPONSE_CONVERTER} from './entrypoints/rpc/types';
 import {
   AUTH_ENTRYPOINT,
+  AUTH_REQUEST_FACTORY,
   AUTH_RESPONSE_CONVERTER,
-  IEntrypointAuth,
   IAuthRequestFactory,
-  AUTH_REQUEST_FACTORY
-} from '@app-services/data/entrypoints/auth/types';
-import {TransportService} from '@app-services/data/transport/transport.service';
-import {TRANSPORT_SERVICE} from '@app-services/data/transport/types';
-import {IEntryPointConfig, ISourceConfig, CONFIG_SOURCE, CONFIG_ENTRYPOINT} from '@app-library/app-config';
+  IEntrypointAuth
+} from './entrypoints/auth/types';
 
 
 @NgModule({
@@ -48,7 +44,7 @@ export class HTTPDataModule {
     };
   }
 
-  static configSource(config: ISourceConfig[]): ModuleWithProviders<HTTPDataModule> {
+  static configSource(config: IModelConfig<any>[]): ModuleWithProviders<HTTPDataModule> {
     return {
       ngModule: HTTPDataModule, providers: [
         {provide: CONFIG_SOURCE, useValue: config, multi: true},

@@ -1,7 +1,8 @@
 import {Observable} from 'rxjs';
 import {InjectionToken} from '@angular/core';
-import {IEntrypointAuth} from '@app-services/data/entrypoints/auth/types';
-import {IRequest} from '@app-services/data/entrypoints/types';
+import {IEntrypointAuth} from '../auth/types';
+import {IRequest} from '../types';
+
 
 export const RPC_ENTRYPOINT = new InjectionToken<IRPCEntrypoint>('RPC_ENTRYPOINT');
 export const RPC_RESPONSE_CONVERTER = new InjectionToken<IEntrypointAuth>('RPC_RESPONSE_CONVERTER');

@@ -1,18 +1,14 @@
 import {Inject, Injectable} from '@angular/core';
-import {
-  AUTH_REQUEST_FACTORY,
-  AUTH_RESPONSE_CONVERTER,
-  IAuthRequestFactory,
-  IEntrypointAuth
-} from '@app-services/data/entrypoints/auth/types';
-import {EntrypointAbstractService} from '@app-services/data/entrypoints/entrypoint.abstract';
-import {IResponseConverter} from '@app-services/data';
-import {ITransportService, TRANSPORT_SERVICE} from '@app-services/data/transport/types';
+
 import {Observable} from 'rxjs';
 import {switchMap, take} from 'rxjs/operators';
+import {EntrypointAbstractService} from '../entrypoint.abstract';
+import {AUTH_REQUEST_FACTORY, AUTH_RESPONSE_CONVERTER, IAuthRequestFactory, IEntrypointAuth} from './types';
+import {IResponseConverter} from '../types';
+import {ITransportService, TRANSPORT_SERVICE} from '../../transport/types';
 
 @Injectable()
-export class AuthEntrypointService extends EntrypointAbstractService implements  IEntrypointAuth {
+export class AuthEntrypointService extends EntrypointAbstractService implements IEntrypointAuth {
 
   constructor(@Inject(AUTH_REQUEST_FACTORY) protected request: IAuthRequestFactory,
               @Inject(AUTH_RESPONSE_CONVERTER) protected converter: IResponseConverter,

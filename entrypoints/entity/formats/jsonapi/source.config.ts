@@ -1,4 +1,4 @@
-import {IEntryPointConfig, ISourceConfigAuth} from '@app-library/app-config';
+import {IEntryPointConfig} from '../../../../../dangular-config';
 
 
 export namespace EntrypointJsonAPI {
@@ -8,8 +8,8 @@ export namespace EntrypointJsonAPI {
   };
 
 
-  export const sources: ISourceConfigAuth[] = [
-    {entrypoint: 'entity', source: 'user', url: 'user'}
-  ];
+  // export const sources: ISourceConfigAuth[] = [
+  //   {entrypoint: 'entity', source: 'user', url: 'user'}
+  // ];
 }
 

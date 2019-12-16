@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IRPCRequestFactory} from '@app-services/data/entrypoints/rpc/types';
-import {IRequest} from '@app-services/data/entrypoints/types';
+import {IRPCRequestFactory} from '../../types';
+import {IRequest} from '../../../types';
+
 
 @Injectable()
-export class JsonRPCRequestFactoryService implements IRPCRequestFactory{
+export class JsonRPCRequestFactoryService implements IRPCRequestFactory {
   execute(command: string): Observable<IRequest> {
     return undefined;
   }

@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {ITransportService} from '@app-services/data/transport/types';
 import {switchMap} from 'rxjs/operators';
-import {IRequest} from '@app-services/data/entrypoints/types';
+import {ITransportService} from './types';
+import {IRequest} from '../entrypoints/types';
+
 
 
 @Injectable()

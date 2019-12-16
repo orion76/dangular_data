@@ -1,6 +1,6 @@
 import {Observable, of} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {IResponseConverter} from '@app-services/data';
+import {IResponseConverter} from '../../../types';
 
 @Injectable()
 export class OauthResponseConverterService implements IResponseConverter {

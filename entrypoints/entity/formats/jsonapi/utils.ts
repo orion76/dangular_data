@@ -1,5 +1,5 @@
-import {IEntity} from '@xangular-common/entity';
-import {IJSONAPIEntity} from '@app-services/data/entrypoints/entity/formats/jsonapi/types';
+import {IJSONAPIEntity} from './types';
+import {IEntity} from '../../../../../dangular-common/entity';
 
 
 export function itemToArray(data: any): any[] {

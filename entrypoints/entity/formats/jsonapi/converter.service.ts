@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {IResponseConverter} from '@app-services/data';
 import {Observable, of} from 'rxjs';
 import {
   itemToArray,
@@ -7,6 +6,7 @@ import {
   responseToEntity,
   setRelationships
 } from './utils';
+import {IResponseConverter} from '../../../types';
 
 @Injectable()
 export class ResponseJsonapiConverterService implements IResponseConverter {

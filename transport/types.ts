@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 import {InjectionToken} from '@angular/core';
-import {IRequest} from '@app-services/data/entrypoints/types';
+import {IRequest} from '../entrypoints/types';
 
 export const TRANSPORT_SERVICE = new InjectionToken<ITransportService>('TRANSPORT_SERVICE');
 

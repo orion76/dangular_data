@@ -1,15 +1,11 @@
 import {HttpClient} from '@angular/common/http';
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
-import {APP_CONFIG_SERVICE, IAppConfigService, ISourceConfigEntity} from '@app-library/app-config';
-
-import {SOURCE_PARSE_SERVICE} from '@app-services/injection-tokens';
-import {ISourceParseService} from '@app-services/source-parse.service';
-import {IEntity, IEntityFieldConfig} from '@xangular-common/entity';
-import {IEntityRequest} from '@xangular-store/entity/types';
-import {IUniqueIdService, UNIQUE_ID_SERVICE} from '@dangular-common/services/unique-id.service';
-import {JsonRPCRequest} from '@app/libraries/dangular-entrypoins/jsonrpc/types';
-import {IRequest} from '@app-services/data/entrypoints/types';
-import {GetSet} from '@xangular-store/metadata';
+import {Inject, Injectable, InjectionToken} from '@angular/core';
+import {IRequest} from './entrypoints/types';
+import {APP_CONFIG_SERVICE, IAppConfigService, ISourceConfigEntity} from '../dangular-config';
+import {IEntity, IEntityFieldConfig} from '../dangular-common/entity';
+import {IEntityRequest} from './types';
+import {IUniqueIdService, UNIQUE_ID_SERVICE} from '../dangular-common/services/unique-id.service';
+import {GetSet} from '../dangular-common/metadata';
 
 
 export const DATA_SERVICE = new InjectionToken<IDataService>('DATA_SERVICE');
@@ -38,39 +34,23 @@ export class DataService implements IDataService {
     private http: HttpClient,
     @Inject(APP_CONFIG_SERVICE) protected config: IAppConfigService,
     @Inject(UNIQUE_ID_SERVICE) protected uniqueId: IUniqueIdService,
-    @Optional() @Inject(SOURCE_PARSE_SERVICE) protected parser: ISourceParseService,
   ) {
 
   }
 
   createNew(request: IEntityRequest) {
-    // return this.config.get(request.source)
-    //   .pipe(
-    //     tap((config: ISourceConfig<IEntity>) => Log.DATA('(createNew)', {config})),
-    //     map((config: ISourceConfig<IEntity>) => this._createNew(request, config))
-    //   );
+    return this.config.getEntrypoint(request.source)
+      .pipe(
+        // map((config: IEntryPointConfig) => this._createNew(request, config))
+      );
   }
 
   getItem<T extends IEntity>(request: IEntityRequest) {
-    // return this.config.get(request.source)
+    // return this.config.getEntrypoint(request.source)
     //   .pipe(
-    //     tap((config: ISourceConfig<T>) => Log.DATA('(getItem)', {request, config})),
-    //     map((config: ISourceConfig<T>) => new RequestJsonApi(request, config)),
+    //     map((config: IEntryPointConfig) => new RequestJsonApi(request, config)),
     //     switchMap((request: IRequest) => {
     //       return this.request('jsonapi', 'GET', request.url(), request.options())
-    //         .pipe(take(1));
-    //     }),
-    //     map((data: IEntity) => data[0] ? data[0] : null)
-    //   );
-  }
-
-  getJsonRPC<T extends IEntity>(request: JsonRPCRequest<any>) {
-    // return this.config.get('jsonrpc', request.source)
-    //   .pipe(
-    //     rxLog('(getItem)', request),
-    //     map((config: ISourceConfig<T>) => new RequestJsonApi(request, config)),
-    //     switchMap((request: IRequest) => {
-    //       return this.request('jsonrpc', 'POST', request.url(), request.options())
     //         .pipe(take(1));
     //     }),
     //     map((data: IEntity) => data[0] ? data[0] : null)

@@ -1,10 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IAuthRequestFactory} from '@app-services/data/entrypoints/auth/types';
-import {APP_CONFIG_SERVICE, IAppConfigService, IEntrypointSourceConfig} from '@app-library/app-config';
 import {map} from 'rxjs/operators';
-import {IRequest, UHTTPMethod} from '@app-services/data/entrypoints/types';
-import {ITokenRequest} from '@app-library/user/auth';
+import {IAuthRequestFactory} from '../../types';
+import {APP_CONFIG_SERVICE, IAppConfigService, IEntryPointConfig} from '../../../../../dangular-config';
+import {IRequest, UHTTPMethod} from '../../../types';
 
 @Injectable()
 export class OauthRequestFactoryService implements IAuthRequestFactory {
@@ -15,8 +14,8 @@ export class OauthRequestFactoryService implements IAuthRequestFactory {
   auth(dataLogin: any): Observable<IRequest> {
     const method: UHTTPMethod = 'POST';
 
-    return this.config.get('auth', 'auth').pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint( 'auth').pipe(
+      map((config: IEntryPointConfig) => {
 
 
         return {method, url: this.config.createUrl(config), dataLogin} as IRequest;
@@ -26,10 +25,10 @@ export class OauthRequestFactoryService implements IAuthRequestFactory {
 
   login(authData: any): Observable<IRequest> {
     const method: UHTTPMethod = 'POST';
-    return this.config.get('auth', 'login').pipe(
-      map((config: IEntrypointSourceConfig<any>) => {
+    return this.config.getEntrypoint( 'login').pipe(
+      map((config: IEntryPointConfig) => {
 
-        const data: ITokenRequest = {
+        const data: any = {
 
           grant_type: 'password',
           scope: 'jsonapi',

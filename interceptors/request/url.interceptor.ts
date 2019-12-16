@@ -1,10 +1,8 @@
-import {Injectable, Inject} from '@angular/core';
-import {HttpInterceptor, HttpHandler, HttpRequest, HttpEvent} from '@angular/common/http';
+import {Inject, Injectable} from '@angular/core';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {APP_CONFIG_SERVICE, IAppConfigService} from '@app-library/app-config';
-import {clearDoubleSlash} from '@app-services/data/utils';
-import {ELog} from '@app/logger/config';
-import {Log} from '@app/logger/logger';
+import {APP_CONFIG_SERVICE, IAppConfigService} from '../../../dangular-config';
+import {clearDoubleSlash} from '../../utils';
 
 
 @Injectable()
@@ -15,7 +13,6 @@ export class UrlRequestInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    Log.INTERCEPTOR('(URL)', req);
 
     const url = [];
     if (this.config.urlPrefix && this.config.urlPrefix.length > 0) {

@@ -1,5 +1,6 @@
-import {IHTTPOptions} from '@app-services/data';
+
 import {Observable} from 'rxjs';
+import {IHTTPOptions} from '../types';
 
 export interface IEntrypointService {
   // handler: IEntrypointHandler;

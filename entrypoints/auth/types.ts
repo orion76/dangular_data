@@ -1,6 +1,6 @@
 import {InjectionToken} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IRequest} from '@app-services/data/entrypoints/types';
+import {IRequest} from '../types';
 
 export const AUTH_ENTRYPOINT = new InjectionToken<IEntrypointAuth>('AUTH_ENTRYPOINT');
 export const AUTH_RESPONSE_CONVERTER = new InjectionToken<IEntrypointAuth>('AUTH_RESPONSE_CONVERTER');
