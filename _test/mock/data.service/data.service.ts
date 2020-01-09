@@ -1,13 +1,15 @@
-import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {IDataService, IRequest, TModelOperations} from './types';
+import {Observable, of} from 'rxjs';
+import {IDataService, IRequest, TModelOperations} from '../../../types';
+import {loadData} from './data/load';
+import {IJsonApi} from '../../../formats/jsonapi/type';
+import {loadMultipleData} from './data/loadMultiple';
 
 
 @Injectable()
-export class DataService implements IDataService {
+export class MockDataService implements IDataService {
 
-  constructor(private http: HttpClient) {
+  constructor() {
 
   }
 
@@ -32,20 +34,22 @@ export class DataService implements IDataService {
     return this.send('delete', request);
   }
 
-  protected send<R>(operation: TModelOperations, request: IRequest): Observable<R> {
+  modelScheme(request: IRequest): Observable<any> {
+    return undefined;
+  }
+
+  protected send(operation: TModelOperations, request: IRequest): Observable<IJsonApi> {
     const {url, params, data} = request;
     switch (operation) {
       case 'load':
-        return this.http.get<R>(url, {params});
+        return of(loadData);
+      case 'loadMultiple':
+        return of(loadMultipleData);
       case 'saveNew':
-        return this.http.post<R>(url, data);
+        return of(null);
       case 'saveUpdate':
-        return this.http.patch<R>(url, data);
+        return of(null);
     }
-  }
-
-  modelScheme(request: IRequest): Observable<any> {
-    return undefined;
   }
 
 }
